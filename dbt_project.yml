@@ -2,7 +2,8 @@ name: 'airbyte_stripe'
 version: '0.1.0'
 require-dbt-version: ['>=1.0.0']
 config-version: 2
-profile: 'default'
+#profile: 'default'
+profile: ''
 model-paths: ["models"]
 analysis-paths: ["analyses"]
 test-paths: ["tests"]
@@ -21,21 +22,22 @@ models:
     tmp:
       materialized: view
 
+# TODO: add support for table prefix (_airbyte_stripe_customers_hashid AS _airbyte_customers_hashid,)
 vars:
   airbyte_stripe:
-    customers: "{{ source('airbyte_stripe','customers') }}"
-    customers_address: "{{ source('airbyte_stripe','customers_address') }}"
+    customers: "stripe_customers"
+    customers_address: "stripe_customers_address"
     balance_transactions: "{{ source('airbyte_stripe','balance_transactions') }}" 
-    charges_card: "{{ source('airbyte_stripe','charges_card') }}"
-    charges: "{{ source('airbyte_stripe','charges') }}"
-    payment_intents: "{{ source('airbyte_stripe','payment_intents') }}"
-    payouts: "{{ source('airbyte_stripe','payouts') }}"
-    refunds: "{{ source('airbyte_stripe','refunds') }}"
-    invoice_line_items: "{{ source('airbyte_stripe','invoice_line_items') }}"
-    invoice_line_items_period: "{{ source('airbyte_stripe','invoice_line_items_period') }}"
-    invoice_line_items_plan: "{{ source('airbyte_stripe','invoice_line_items_plan') }}"
-    invoices: "{{ source('airbyte_stripe','invoices') }}"
-    subscriptions: "{{ source('airbyte_stripe','subscriptions') }}"
-    plans: "{{ source('airbyte_stripe','plans') }}"
+    charges_card: "stripe_charges_card"
+    charges: "stripe_charges"
+    payment_intents: "stripe_payment_intents"
+    payouts: "stripe_payouts"
+    refunds: "stripe_refunds"
+    invoice_line_items: "stripe_invoice_line_items"
+    invoice_line_items_period: "stripe_invoice_line_items_period"
+    invoice_line_items_plan: "stripe_invoice_line_items_plan"
+    invoices: "stripe_invoices"
+    subscriptions: "stripe_subscriptions"
+    plans: "stripe_plans"
 
   "dbt_date:time_zone": "UTC"

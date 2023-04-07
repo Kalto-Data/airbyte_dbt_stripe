@@ -1,6 +1,6 @@
 with customer_addresses as (
     select
-        _airbyte_customers_hashid,
+        _airbyte_stripe_customers_hashid,
         line1,
         line2,
         city,
@@ -28,4 +28,4 @@ select
     phone
 from {{ var('customers')}}
 left join customer_addresses
-    using(_airbyte_customers_hashid)
+    using(_airbyte_stripe_customers_hashid)

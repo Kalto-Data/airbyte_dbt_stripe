@@ -1,6 +1,6 @@
 with invoice_line_items_period as (
     select
-        _airbyte_invoice_line_items_hashid,
+        _airbyte_stripe_invoice_line_items_hashid,
         {{ dbt_date.from_unixtimestamp('start') }} as period_start,
         {{ dbt_date.from_unixtimestamp('"end"') }} as period_end
     from {{ var('invoice_line_items_period') }}
@@ -8,7 +8,7 @@ with invoice_line_items_period as (
 
 invoice_line_items_plan as (
     select
-        _airbyte_invoice_line_items_hashid,
+        _airbyte_stripe_invoice_line_items_hashid,
         id as plan_id
     from {{ var('invoice_line_items_plan') }}
 )
@@ -25,6 +25,6 @@ select
     period_end
 from {{ var('invoice_line_items') }}
 left join invoice_line_items_period
-    using(_airbyte_invoice_line_items_hashid)
+    using(_airbyte_stripe_invoice_line_items_hashid)
 left join invoice_line_items_plan
-    using(_airbyte_invoice_line_items_hashid)
+    using(_airbyte_stripe_invoice_line_items_hashid)
